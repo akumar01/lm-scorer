@@ -154,18 +154,18 @@ def main(args: argparse.Namespace) -> None:
 
 
 def run() -> None:
-    try:
-        args = parse_args()
+    args = parse_args()
+    normalize_args(args)
+    validate_args(args)
+    main(args)
 
-        normalize_args(args)
-        validate_args(args)
-        main(args)
-    except KeyboardInterrupt:
-        print("\nAborted!")
-    except Exception as err:  # pylint: disable=broad-except
-        if args.debug:
-            raise
-        print("Error: %s" % err)
+    # try:
+    # except KeyboardInterrupt:
+    #     print("\nAborted!")
+    # except Exception as err:  # pylint: disable=broad-except
+    #     if args.debug:
+    #         raise
+    #     print("Error: %s" % err)
 
 
 if __name__ == "__main__":

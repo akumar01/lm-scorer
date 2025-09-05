@@ -3,7 +3,7 @@ from typing import *  # pylint: disable=wildcard-import,unused-wildcard-import
 
 import torch
 from transformers import AutoTokenizer, GPT2LMHeadModel
-from transformers import GPT2_PRETRAINED_CONFIG_ARCHIVE_MAP
+# from transformers import GPT2_PRETRAINED_CONFIG_ARCHIVE_MAP
 from transformers.tokenization_utils import BatchEncoding
 
 from .abc.transformers import TransformersLMScorer
@@ -16,7 +16,7 @@ class GPT2LMScorer(TransformersLMScorer):
 
         # pylint: disable=attribute-defined-outside-init
         self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name, use_fast=True, add_special_tokens=False
+            model_name, use_fast=True
         )
         # Add the pad token to GPT2 dictionary.
         # len(tokenizer) = vocab_size + 1
@@ -82,4 +82,5 @@ class GPT2LMScorer(TransformersLMScorer):
     # @overrides
     @classmethod
     def _supported_model_names(cls) -> Iterable[str]:
-        return GPT2_PRETRAINED_CONFIG_ARCHIVE_MAP.keys()
+        # Hardcoded...GPT2_PRETRAINED_CONFIG_ARCHIVE_MAP is not available in current version of transformers
+        return ["gpt2", "gpt2-medium", "gpt2-large", "gpt2-xl", "distilgpt2"]
